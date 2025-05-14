@@ -50,6 +50,13 @@ Route::middleware(['auth','verified' ,'isAdmin'])->group(function () {
 
 });
 
+//Admin Users//
+
+Route::middleware(['auth','verified' ,'isAdmin'])->group(function () {
+    Route::get('/dashboard/users', [AdminController::class, 'userList'])->name('dashboard.users');
+    Route::delete('/dashboard/users/{id}', [AdminController::class, 'deleteUser'])->name('dashboard.users.delete');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

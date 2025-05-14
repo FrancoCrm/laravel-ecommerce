@@ -34,12 +34,11 @@
                 {{ request()->routeIs('dashboard.orders') ? 'bg-blue-500 font-semibold text-white' : '' }}">
                     <i class="fa fa-boxes-stacked w-5"></i> Orders
                 </a>
-                <a href="#"
+                <a href="{{ route('dashboard.users') }}"
                 class="flex items-center gap-2 px-4 py-2 rounded hover:bg-blue-500 hover:text-white text-gray-700
                 {{ request()->routeIs('dashboard.users') ? 'bg-blue-500 font-semibold text-white' : '' }}">
                     <i class="fa fa-user w-5"></i> Users
                 </a>
-
 
                 <a href="#"
                 class="flex items-center gap-2 px-4 py-2 rounded hover:bg-blue-500  hover:text-white text-gray-700

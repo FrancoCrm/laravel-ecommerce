@@ -94,7 +94,6 @@ public function productAdd() {
             if ($product->image && Storage::disk('public')->exists('products/' . $product->image)) {
                 Storage::disk('public')->delete('products/' . $product->image);
             }
-
             // Simpan gambar baru
             $image = $request->file('image');
             $imageName = $image->hashName();
@@ -161,6 +160,18 @@ public function productAdd() {
         return redirect()->route('dashboard.categories')->with('success', 'Kategori berhasil diperbarui.');
     }
 
+    //Users
+    public function userList() {
+        $users = User::latest()->paginate(10);
+        return view('dashboard.users.index', compact('users'));
+    }
+
+    public function deleteUser ($id): RedirectResponse {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('dashboard.users')->with('success', 'User berhasil dihapus');
+    }
+
     //Order
     public function listOrder() {
 
@@ -174,11 +185,9 @@ public function productAdd() {
     }
 
     public function deleteOrder ($id): RedirectResponse {
-
         $order = Order::findOrFail($id);
         $order->delete();
         return redirect()->route('dashboard.orders')->with('success', 'Order berhasil dihapus');
     }
-
 
 }
