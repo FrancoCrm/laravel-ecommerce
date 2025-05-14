@@ -5,7 +5,7 @@
     <x-sidebar-menu />
 
 
-    <div class="lg:pl-64 pt-4"> {{-- pl-64 = offset sidebar, pt-16 = offset navbar/header --}}
+    <div class="lg:pl-64 pt-4">
         <div class="py-4 mx-auto sm:px-6 lg:px-8">
 
             <!-- Konten Utama -->
