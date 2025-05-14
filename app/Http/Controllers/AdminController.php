@@ -58,7 +58,7 @@ public function productAdd() {
             'image'       => $imagePath,
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('dashboard.products.index')->with('success', 'Produk berhasil ditambahkan');
     }
 
 
