@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,6 +16,9 @@ Route::get('/', [ProductController::class, 'index'])->name('welcome');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 
 Route::get('/search', [ProductController::class, 'search'])->name('product.search');
+
+Route::get('/categories/{slug}', [CategoryController::class, 'showCategory'])->name('categories.show');
+
 
 
 
