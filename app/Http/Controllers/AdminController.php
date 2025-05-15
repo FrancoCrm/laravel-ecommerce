@@ -134,11 +134,21 @@ public function productAdd() {
     public function storeCategory(Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5048',
         ]);
+
+        $imageName = null;
+
+if ($request->hasFile('image')) {
+    $image = $request->file('image');
+    $imageName = $image->hashName(); // nama unik
+    $image->storeAs('categories', $imageName, 'public'); // simpan di storage/app/public/categories
+}
 
         Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
+            'image' => $imageName
         ]);
 
         return redirect()->route('dashboard.categories')->with('success', 'Kategori berhasil ditambahkan');
@@ -159,11 +169,22 @@ public function productAdd() {
     {
         $request->validate([
             'name' => 'required|string|min:1',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 
         $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->hashName();
+            $image->storeAs('categories', $imageName, 'public');
+            if ($category->image && Storage::disk('public')->exists('categories/' . $category->image)) {
+                Storage::disk('public')->delete('categories/' . $category->image);
+            }
+            $category->image = $imageName;
+        }
         $category->save();
         return redirect()->route('dashboard.categories')->with('success', 'Kategori berhasil diperbarui.');
     }

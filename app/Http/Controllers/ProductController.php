@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         // Mengambil semua kategori dan produk terbaru
         $categories = Category::all();
-        $products = Product::latest()->paginate(4);
+        $products = Product::latest()->get();
 
         // Mengecek apakah user sudah login
         $cartCount = 0;

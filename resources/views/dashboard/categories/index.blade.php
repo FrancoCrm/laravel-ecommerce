@@ -25,6 +25,7 @@
                                 <th class="px-4 py-2 border">No</th>
                                 <th class="px-4 py-2 border">ID</th>
                                 <th class="px-4 py-2 border">Nama Kategori</th>
+                                <th class="px-4 py-2 border">Gambar</th>
                                 <th class="px-4 py-2 border">Aksi</th>
                             </tr>
                         </thead>
@@ -34,6 +35,9 @@
                                     <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                                     <td class="px-4 py-2 border">{{ $category->id }}</td>
                                     <td class="px-4 py-2 border capitalize">{{ $category->name }}</td>
+                                    <td class="px-4 py-2 border">
+                                        <img src="{{ asset('storage/categories/' . $category->image) }}" alt="{{ $category->name }}"
+                                            class="w-36 rounded-none object-center">
                                     </td>
 
                                     <td class="px-4 py-2 border ">
