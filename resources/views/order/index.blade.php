@@ -74,6 +74,7 @@
 
                  </div>
                 </div>
+                 @endforeach
             </div>
 
                     {{-- <div class="space-y-4">
@@ -93,7 +94,7 @@
 
 
 
-            @endforeach
+
         </div>
     @endif
 </div>

@@ -12,7 +12,7 @@
             <div class="mt-4 py-4 mx-auto bg-white p-6 rounded shadow">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-gray-800">Daftar Order User</h2>
-                    
+
                 </div>
 
                 <div class="overflow-x-auto">
@@ -23,9 +23,10 @@
                                 <th class="px-4 py-2 border">ID Order</th>
                                 <th class="px-4 py-2 border">Nama Pengguna </th>
                                 <th class="px-4 py-2 border">Total</th>
+                                <th class="px-4 py-2 border">Tanggal Pesan</th>
                                 <th class="px-4 py-2 border">Status</th>
                                 <th class="px-4 py-2 border">Aksi</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -33,11 +34,12 @@
                                 <tr>
                                     <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
                                     <td class="px-4 py-2 border">{{ $order->id }}</td>
-                                   
+
                                     <td class="px-4 py-2 border capitalize">{{ $order->user->name }}</td>
-                                  
+
                                     <td class="px-4 py-2 border">Rp {{ number_format($order->total) }}
                                     </td>
+                                    <td class="px-4 py-2 border">{{ $order->created_at->format('d M Y H:i') }}</td>
                                       <td class="px-4 py-2 border"><span class="bg-orange-200 p-4 py-2 rounded-full text-gray-800 font-normal capitalize">{{ $order->status}}</span></td>
 
                                     <td class="px-4 py-2 border">
@@ -55,7 +57,7 @@
                                         </div>
 
                                     </td>
-                                  
+
                                 </tr>
                             @empty
                                 <tr>

@@ -78,39 +78,47 @@ public function productAdd() {
     }
 
     public function updateProduct(Request $request, $id)
-    {
-        $request->validate([
-            'name'        => 'required|string|min:1',
-            'category_id' => 'required|exists:categories,id',
-            'description' => 'required|string|min:10',
-            'price'       => 'required|numeric',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg|max:10024',
-        ]);
+{
+    $request->validate([
+        'name'        => 'required|string|min:1',
+        'category_id' => 'required|exists:categories,id',
+        'description' => 'required|string|min:10',
+        'price'       => 'required|numeric',
+        'image'       => 'nullable|image|mimes:jpeg,png,jpg|max:10024',
+    ]);
 
-        $product = Product::findOrFail($id);
+    // ✅ Ambil produk dari database
+    $product = Product::find($id);
 
-        if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
-            if ($product->image && Storage::disk('public')->exists('products/' . $product->image)) {
-                Storage::disk('public')->delete('products/' . $product->image);
-            }
-            // Simpan gambar baru
-            $image = $request->file('image');
-            $imageName = $image->hashName();
-            $image->storeAs('products', $imageName, 'public');
+    if (!$product) {
+        return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+    }
 
-            $product->image = $imageName;
+    // 📦 Jika upload gambar baru
+    if ($request->hasFile('image')) {
+        // Hapus gambar lama jika ada
+        if ($product->image && Storage::disk('public')->exists('products/' . $product->image)) {
+            Storage::disk('public')->delete('products/' . $product->image);
         }
 
-        // Update field lainnya
-        $product->name = $request->name;
-        $product->category_id = $request->category_id; // Kamu sebelumnya salah, pakai yang dari request
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->save();
+        // Simpan gambar baru
+        $image = $request->file('image');
+        $imageName = $image->hashName();
+        $image->storeAs('products', $imageName, 'public');
 
-        return redirect()->route('dashboard.products')->with('success', 'Produk berhasil diperbarui.');
+        $product->image = $imageName;
     }
+
+    // 📝 Update field lainnya
+    $product->name = $request->name;
+    $product->category_id = $request->category_id;
+    $product->description = $request->description;
+    $product->price = $request->price;
+    $product->save();
+
+    return redirect()->route('dashboard.products')->with('success', 'Produk berhasil diperbarui.');
+}
+
 
 
     //Category
