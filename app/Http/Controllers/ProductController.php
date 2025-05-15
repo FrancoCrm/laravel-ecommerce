@@ -54,6 +54,7 @@ class ProductController extends Controller
         return view('welcome', [
             'products' => $products,
             'searchQuery' => $query,
+            'categories' => Category::all()
         ]);
     }
 
